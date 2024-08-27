@@ -5,8 +5,8 @@ data "yandex_compute_image" "my_image" {
 resource "yandex_compute_instance" "k8s-master" {
   count       = var.master_nodes
   platform_id = var.instance_platform_id
-  hostname    = "k8s-mst-${count.index}"
-  name        = yandex_compute_instance.k8s-master.hostname
+  hostname    = "k8s-master-${count.index}"
+  name        = "k8s-master-${count.index}"
 
   resources {
     cores  = 2
@@ -35,7 +35,7 @@ resource "yandex_compute_instance" "k8s-app" {
   count       = var.app_nodes
   platform_id = var.instance_platform_id
   hostname    = "k8s-app-${count.index}"
-  name        = yandex_compute_instance.k8s-app.hostname
+  name        = "k8s-app-${count.index}"
 
   resources {
     cores  = 2

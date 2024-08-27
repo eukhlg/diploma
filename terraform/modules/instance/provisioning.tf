@@ -1,5 +1,5 @@
 resource "null_resource" "k8s-master" {
-  count      = master_nodes
+  count      = var.master_nodes
   depends_on = [yandex_compute_instance.k8s-master]
   connection {
     user        = var.ssh_credentials.user
