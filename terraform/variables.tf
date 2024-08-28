@@ -5,6 +5,7 @@ variable "token" {
 }
 
 # export TF_VAR_token=
+# https://yandex.cloud/ru/docs/iam/concepts/authorization/oauth-token
 
 variable "cloud_id" {
   description = "YC Cloud ID"
@@ -28,6 +29,16 @@ variable "zone" {
   default     = "ru-central1-a"
 }
 
-locals {
-  man_ip = ["95.140.147.80/32"]
+variable "ssh_credentials" {
+  description = "Instance SSH Credentials"
+  type = object({
+    user        = string
+    private_key = string
+    pub_key     = string
+  })
+  default = {
+    user        = "admin"
+    private_key = "~/.ssh/id_rsa"
+    pub_key     = "~/.ssh/id_rsa.pub"
+  }
 }

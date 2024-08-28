@@ -52,9 +52,9 @@ variable "ssh_credentials" {
     private_key = string
     pub_key     = string
   })
-  default = {
-    user        = "admin"
-    private_key = "~/.ssh/id_rsa"
-    pub_key     = "~/.ssh/id_rsa.pub"
-  }
+}
+
+variable "dns_zone_id" {
+  description = "Instance DNS zone"
+  type        = string
 }
