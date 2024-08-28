@@ -1,7 +1,11 @@
-output "external_ip_address_manager" {
-  value = module.k8s_cluster[*].external_ip_address_master
+output "k8s_master_external_ip_address" {
+  value = module.k8s_master[*].instance_external_ip_address
 }
 
-output "external_ip_address_worker" {
-  value = module.k8s_cluster[*].external_ip_address_app
+output "k8s_app_external_ip_address" {
+  value = module.k8s_app[*].instance_external_ip_address
+}
+
+output "srv_management_external_ip_address" {
+  value = module.srv_management[*].instance_external_ip_address
 }

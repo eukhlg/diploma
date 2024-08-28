@@ -1,17 +1,35 @@
-variable "master_nodes" {
-  description = "Count of manager nodes"
-  type        = number
-  default     = 1
+variable "instance_name" {
+  description = "Instance Name"
+  type        = string
+  default     = "node"
 }
 
-variable "app_nodes" {
-  description = "Count of worker nodes"
+variable "instance_cores" {
+  description = "Instance CPU Cores"
+  type        = number
+  default     = 2
+}
+
+variable "instance_memory" {
+  description = "Instance RAM"
+  type        = number
+  default     = 4
+}
+
+variable "instance_disk" {
+  description = "Instance Disk Size"
+  type        = number
+  default     = 15
+}
+
+variable "instance_count" {
+  description = "Instances Count"
   type        = number
   default     = 1
 }
 
 variable "instance_family_image" {
-  description = "Instance image"
+  description = "Instance Image"
   type        = string
   default     = "ubuntu-2204-lts"
 }
@@ -23,19 +41,19 @@ variable "instance_platform_id" {
 }
 
 variable "vpc_subnet_id" {
-  description = "VPC subnet network id"
+  description = "VPC Subnet Network Id"
   type        = string
 }
 
 variable "ssh_credentials" {
-  description = "Credentials for connect to instances"
+  description = "Instance SSH Credentials"
   type = object({
     user        = string
     private_key = string
     pub_key     = string
   })
   default = {
-    user        = "evgeny"
+    user        = "admin"
     private_key = "~/.ssh/id_rsa"
     pub_key     = "~/.ssh/id_rsa.pub"
   }

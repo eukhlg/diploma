@@ -1,7 +1,15 @@
-output "external_ip_address_master" {
-  value = yandex_compute_instance.k8s-master[*].network_interface.0.nat_ip_address
+output "instance_external_ip_address" {
+  value = yandex_compute_instance.node[*].network_interface.0.nat_ip_address
 }
 
-output "external_ip_address_app" {
-  value = yandex_compute_instance.k8s-app[*].network_interface.0.nat_ip_address
+output "instance_count" {
+  value = var.instance_count
+}
+
+output "instance_name" {
+  value = var.instance_name
+}
+
+output "instance_ssh_credentials" {
+  value = var.ssh_credentials
 }
