@@ -31,7 +31,7 @@ variable "instance_count" {
 variable "instance_family_image" {
   description = "Instance Image"
   type        = string
-  default     = "ubuntu-2204-lts"
+  default     = "debian-12"
 }
 
 variable "instance_platform_id" {
@@ -52,6 +52,11 @@ variable "ssh_credentials" {
     private_key = string
     pub_key     = string
   })
+    default = {
+    user        = "admin"
+    private_key = "~/.ssh/id_rsa"
+    pub_key     = "~/.ssh/id_rsa.pub"
+  }
 }
 
 variable "dns_zone_id" {

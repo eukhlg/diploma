@@ -11,6 +11,11 @@ variable "ssh_credentials" {
     private_key = string
     pub_key     = string
   })
+    default = {
+    user        = "admin"
+    private_key = "~/.ssh/id_rsa"
+    pub_key     = "~/.ssh/id_rsa.pub"
+  }
 }
 
 variable "target_host_ip" {
@@ -33,12 +38,12 @@ variable "file_destination" {
 variable "remote_exec_inline" {
   description = "Remote Shell Command"
   type        = list(any)
-  default     = [" "]
+  default     = ["echo No remote exec command passed"]
 }
 
 variable "local_exec_command" {
   description = "Local Shell Command"
   type        = string
-  default     = " "
+  default     = "echo No local exec command passed"
 }
 

@@ -1,0 +1,13 @@
+services:
+  deploy:
+    image: quay.io/kubespray/kubespray:v2.25.0
+    volumes:
+    - "./inventory/mycluster:/inventory/mycluster"
+    - "~/.ssh/id_rsa:/root/.ssh/id_rsa"
+    - "./reset.yml:/kubespray/playbooks/reset.yml" 
+    command: >
+      sh -c "ansible-playbook -i /inventory/mycluster/inventory.ini --private-key /root/.ssh/id_rsa -b reset.yml &&
+             ansible-playbook -i /inventory/mycluster/inventory.ini --private-key /root/.ssh/id_rsa -b cluster.yml"
+    stdin_open: true
+    tty: true
+

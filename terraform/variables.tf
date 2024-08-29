@@ -42,3 +42,4 @@ variable "ssh_credentials" {
     pub_key     = "~/.ssh/id_rsa.pub"
   }
 }
+

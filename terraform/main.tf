@@ -44,7 +44,7 @@ module "k8s_master" {
   instance_name   = "k8s-master"
   dns_zone_id     = yandex_dns_zone.local.id
   ssh_credentials = var.ssh_credentials
-  instance_count  = 2
+  #instance_count  = 2
 }
 
 module "k8s_app" {
@@ -53,7 +53,7 @@ module "k8s_app" {
   instance_name   = "k8s-app"
   dns_zone_id     = yandex_dns_zone.local.id
   ssh_credentials = var.ssh_credentials
-  instance_count  = 2
+  #instance_count  = 2
 }
 
 module "srv_management" {
@@ -62,15 +62,13 @@ module "srv_management" {
   vpc_subnet_id   = yandex_vpc_subnet.subnet.id
   instance_name   = "srv-mgmt"
   dns_zone_id     = yandex_dns_zone.local.id
-  ssh_credentials = var.ssh_credentials
 }
 
 module "srv_management_config" {
   source           = "./modules/provisioning"
   depends_on       = [module.srv_management]
-  ssh_credentials  = module.srv_management.instance_ssh_credentials
   target_host_ip   = module.srv_management.instance_external_ip_address
-  file_source      = "../management/management_config.sh"
+  file_source      = "../management_config.sh"
   file_destination = "/tmp/management_config.sh"
   remote_exec_inline = [
     "chmod +x /tmp/management_config.sh",
@@ -82,15 +80,13 @@ module "srv_management_config" {
 module "inventory" {
   source             = "./modules/provisioning"
   depends_on         = [module.srv_management]
-  ssh_credentials    = module.srv_management.instance_ssh_credentials
   target_host_ip     = module.srv_management.instance_external_ip_address
-  local_exec_command = "chmod +x ../management/build_inventory.sh && ../management/build_inventory.sh > ../management/ansible/inventory/inventory.ini"
+  local_exec_command = "chmod +x ../build_inventory.sh && ../build_inventory.sh > ../kubespray/inventory/mycluster/inventory.ini"
 }
 
 module "ssh-copy" {
   source           = "./modules/provisioning"
   depends_on       = [module.srv_management]
-  ssh_credentials  = module.srv_management.instance_ssh_credentials
   target_host_ip   = module.srv_management.instance_external_ip_address
   file_source      = var.ssh_credentials.private_key
   file_destination = ".ssh/id_rsa"
@@ -99,11 +95,9 @@ module "ssh-copy" {
 module "kubespray" {
   source           = "./modules/provisioning"
   depends_on       = [module.srv_management_config]
-  ssh_credentials  = module.srv_management.instance_ssh_credentials
   target_host_ip   = module.srv_management.instance_external_ip_address
-  file_source      = "../management/ansible/inventory"
-  file_destination = "./inventory"
-  remote_exec_inline = [
-    "docker run -it --rm --mount type=bind,source=./inventory,dst=/inventory --mount type=bind,source=./.ssh/id_rsa,dst=/root/.ssh/id_rsa quay.io/kubespray/kubespray:v2.25.0 ansible-playbook -i /inventory/inventory.ini --private-key /root/.ssh/id_rsa cluster.yml --become"
-  ]
+  file_source      = "../kubespray"
+  file_destination = "."
+  remote_exec_inline = ["cd ~/kubespray && docker compose up -d"]
 }
+
