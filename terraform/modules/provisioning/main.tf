@@ -1,4 +1,4 @@
-resource "null_resource" "ssh_connection" {
+resource "null_resource" "provision" {
   count = var.instances_count
   connection {
     user        = var.ssh_credentials.user
