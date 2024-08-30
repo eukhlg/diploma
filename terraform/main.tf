@@ -101,3 +101,11 @@ module "kubespray" {
   remote_exec_inline = ["cd ~/kubespray && docker compose up -d"]
 }
 
+module "jenkins" {
+  source           = "./modules/provisioning"
+  depends_on       = [module.srv_management_config]
+  target_host_ip   = module.srv_management.instance_external_ip_address
+  file_source      = "../jenkins"
+  file_destination = "."
+  remote_exec_inline = ["cd ~/jenkins && docker compose up -d"]
+}

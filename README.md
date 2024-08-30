@@ -1,8 +1,9 @@
 # Infrastructure
-The following infrastructure componets can be deployed to Yandex Cloud with teraform
+The following infrastructure componets can be deployed to Yandex Cloud with terraform
 * Kubernetes nodes (app and master)
 * Management server
 * Kubernetes cluster (via Kubespray)
+* Jenkins
   
 Make sure to set following environment variables before start:
 * TF_VAR_token (from [here](https://yandex.cloud/ru/docs/iam/concepts/authorization/oauth-token))
