@@ -16,3 +16,8 @@ Make sure to set following environment variables before start:
 In order to configure Kubespray review/change:
 * **build_inventory.sh** (example: "for m in {1..3}" means we have 3 master nodes, "for a in {1..2}" for 2 app nodes. This node count should be the same as in terrfaform's main.tf)
 * **all.yaml** & **k8s-cluster.yaml** within Kubespray inventory
+
+## Jenkins
+* Install **Multibranch Scan Webhook Trigger Version 1.0.11**  plugin
+* Install **Docker plugin Version 1.6.2**
+* Install **Kubernetes plugin**
