@@ -21,20 +21,19 @@ In order to configure Kubespray review/change:
 * **all.yaml** & **k8s-cluster.yaml** within Kubespray inventory
 
 ## Jenkins
-Install plugins:
+# Plugins
  * Multibranch Scan Webhook Trigger
  * Basic Branch Build Strategies
  * Docker Pipeline
  * Docker plugin
  * Kubernetes plugin
 
-Add cregentials for:
+# Credentials
 * GitHub
 * DockerHub
 * Kuberenes server
 
 ### Kubernetes integration
-
 Use following command to create Jenkins account on Kubernetes server:
 
 ```
