@@ -9,3 +9,4 @@ nginx/certs/fullchain.pem
 nginx/certs/private.key
 kubespray/inventory/mycluster/inventory.ini
 jenkins/data.tar.gz
+kubespray/inventory/mycluster/inventory.ini

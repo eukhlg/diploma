@@ -31,4 +31,21 @@ Install plugins:
 Add cregentials for:
 * GitHub
 * DockerHub
-* 
+* Kuberenes server
+
+### Kubernetes integration
+
+Use following command to create Jenkins account on Kubernetes server:
+
+...
+
+kubectl create serviceaccount jenkins
+kubectl create clusterrolebinding jenkins --clusterrole=cluster-admin --serviceaccount=default:jenkins
+kubectl create token jenkins
+
+...
+
+
+On jenkins server create **Cloud** entry pointing to Kubernetes cluster API URL using credential with secret text above.
+
+
