@@ -21,14 +21,14 @@ In order to configure Kubespray review/change:
 * **all.yaml** & **k8s-cluster.yaml** within Kubespray inventory
 
 ## Jenkins
-# Plugins
+### Plugins
  * Multibranch Scan Webhook Trigger
  * Basic Branch Build Strategies
  * Docker Pipeline
  * Docker plugin
  * Kubernetes plugin
 
-# Credentials
+### Credentials
 * GitHub
 * DockerHub
 * Kuberenes server
