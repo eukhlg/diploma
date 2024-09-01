@@ -6,7 +6,7 @@ services:
     hostname: docker
     privileged: true
     networks:
-     - network1
+     - jenkins
     environment:
      - DOCKER_TLS_CERTDIR=/certs
     volumes:
@@ -35,8 +35,8 @@ services:
      - ./homefolder:/var/jenkins_home
      - ./certs:/certs/client:ro
     networks:
-     - network1
+     - jenkins
 networks:
-  network1:
+  jenkins:
     name: mgmt
     external: true

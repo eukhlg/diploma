@@ -4,6 +4,8 @@ terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 terraform/.terraform.tfstate.lock.info
 jenkins/homefolder/
+jenkins/certs/
 nginx/certs/fullchain.pem
 nginx/certs/private.key
 kubespray/inventory/mycluster/inventory.ini
+jenkins/data.tar.gz
