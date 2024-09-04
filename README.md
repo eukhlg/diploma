@@ -21,27 +21,53 @@ In order to configure Kubespray review/change:
 * **all.yaml** & **k8s-cluster.yaml** within Kubespray inventory
 
 ## Jenkins
+### Pipeline
+* Create multibranch pipeline
+* Add **discover tag** beheviours
+* Add container repository credentials (DockerHub)
+
 ### Plugins
- * Multibranch Scan Webhook Trigger
- * Basic Branch Build Strategies
- * Docker Pipeline
- * Docker plugin
- * Kubernetes plugin
+* Multibranch Scan Webhook Trigger
+* Basic Branch Build Strategies
+* Docker Pipeline
+* Kubernetes
+* Kubernetes CLI
 
 ### Credentials
 * GitHub
 * DockerHub
-* Kuberenes server
+* Kuberenes cluster API
 
-### Kubernetes integration
-Use following command to create Jenkins account on Kubernetes server:
+### Webhook
+
+In order to trigger CI/CD pipeline automatically it is necessary to add Webhook URL to repository setting on GitHub.
+It should look as follows:
+
+https://<jenkins.my.domain>/multibranch-webhook-trigger/invoke?token=<your token>
+
+Same token to be user in pipeline settings in Jenkins.
+
+## Kubernetes
+### Service account
+* Use following command to create Jenkins account on Kubernetes cluster:
 
 ```
 kubectl create serviceaccount jenkins
 kubectl create clusterrolebinding jenkins --clusterrole=cluster-admin --serviceaccount=default:jenkins
-kubectl create token jenkins
+kubectl create token jenkins --duration 131072h #15 years token
 ```
 
-On Jenkins server create **Cloud** entry pointing to Kubernetes cluster API URL using secret text credentials with token above.
+* On Jenkins server create **Cloud** entry pointing to Kubernetes cluster API URL using token as **secret text** credentials type.
+
+### Persistent volume
+* Create folder /mnt/data/postgres for Postgeres PV
+
+### Secrets
+
+Before applying the ConfigMap for nginx-rp (Reverse Proxy), you need to create a Kubernetes Secret to store the SSL certificate and key.
+```
+kubectl create secret tls nginx-rp-secret --cert=path/to/tls.crt --key=path/to/tls.key
+```
+
 
 

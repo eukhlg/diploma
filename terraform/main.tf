@@ -90,6 +90,7 @@ module "ssh-copy" {
   target_host_ip   = module.srv_management.instance_external_ip_address
   file_source      = var.ssh_credentials.private_key
   file_destination = ".ssh/id_rsa"
+  local_exec_command = "chmod 400 .ssh/id_rsa"
 }
 
 module "kubespray" {
