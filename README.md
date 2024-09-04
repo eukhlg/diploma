@@ -60,7 +60,7 @@ kubectl create token jenkins --duration 131072h #15 years token
 * On Jenkins server create **Cloud** entry pointing to Kubernetes cluster API URL using token as **secret text** credentials type.
 
 ### Persistent volume
-* Create folder /mnt/data/postgres for Postgeres PV
+* Create folder /mnt/data/postgres for Postgeres PV on worker nodes
 
 ### Secrets
 
@@ -68,6 +68,11 @@ Before applying the ConfigMap for nginx-rp (Reverse Proxy), you need to create a
 ```
 kubectl create secret tls nginx-rp-secret --cert=path/to/tls.crt --key=path/to/tls.key
 ```
+### Helm
 
-
-
+Install helm on Jenkins node:
+```
+cd /tmp && curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+```
