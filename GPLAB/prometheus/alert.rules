@@ -1,0 +1,39 @@
+groups:
+- name: app
+  rules:
+  - alert: Https code not 200
+    expr: probe_http_status_code{instance="https://app.cloudis.me:30443", job="blackbox"} != 200
+    for: 10s
+    labels:
+      severity: "critical"
+    annotations:
+      summary: "Page {{ $labels.instance }} is unavailable"
+      description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 10 seconds"
+
+  - alert: Lattency more than 5 seconds
+    expr: probe_http_duration_seconds{instance="https://app.cloudis.me:30443",job="blackbox",phase="transfer"} > 5 or (probe_http_status_code{instance="https://app.cloudis.me:30443", job="blackbox"} != 200)
+    for: 5s
+    labels:
+      severity: "critical"
+    annotations:
+      summary: "Page {{ $labels.instance }} lattency exceeded"
+      description: "{{ $labels.instance }} of job {{ $labels.job }} lattencey is  more than 5 seconds"
+
+  - alert: Server has reboot
+    expr: (time() - node_boot_time_seconds)/ (60*60) < 1
+    for: 5s
+    labels:
+      severity: "critical"
+    annotations:
+      summary: "Server {{ $labels.instance }} has reboot"
+      description: "{{ $labels.instance }} of job {{ $labels.job }} has reboot in last hour"
+- name: prometheus
+  rules:
+  - alert: PrometheusTargetMissing
+    expr: up == 0
+    for: 0m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Prometheus target missing (instance {{ $labels.instance }})"
+      description: "A Prometheus target has disappeared. An exporter might be crashed. VALUE = {{ $value }}  LABELS: {{ $labels }}"
