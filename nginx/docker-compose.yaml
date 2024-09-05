@@ -5,8 +5,7 @@ services:
     restart: always
     volumes:
     - ./certs:/etc/certs
-    - ./default.conf:/etc/nginx/conf.d/default.conf
-    - ./nginx.conf:/etc/nginx/nginx.conf
+    - ./config:/etc/nginx/conf.d
     ports:
     - "80:80"
     - "443:443"

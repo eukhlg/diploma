@@ -42,6 +42,8 @@ module "k8s_master" {
   source          = "./modules/instance"
   vpc_subnet_id   = yandex_vpc_subnet.subnet.id
   instance_name   = "k8s-master"
+  instance_cores  = 4
+  instance_memory = 8
   dns_zone_id     = yandex_dns_zone.local.id
   ssh_credentials = var.ssh_credentials
   #instance_count  = 2
@@ -51,6 +53,8 @@ module "k8s_app" {
   source          = "./modules/instance"
   vpc_subnet_id   = yandex_vpc_subnet.subnet.id
   instance_name   = "k8s-app"
+  instance_cores  = 4
+  instance_memory = 8
   dns_zone_id     = yandex_dns_zone.local.id
   ssh_credentials = var.ssh_credentials
   #instance_count  = 2
@@ -121,4 +125,13 @@ module "jenkins" {
   file_source      = "../jenkins"
   file_destination = "."
   remote_exec_inline = ["cd ~/jenkins && docker compose up -d"]
+}
+
+module "GAP" {
+  source           = "./modules/provisioning"
+  depends_on       = [module.srv_management_config]
+  target_host_ip   = module.srv_management.instance_external_ip_address
+  file_source      = "../GAP"
+  file_destination = "."
+  remote_exec_inline = ["cd ~/GAP && docker compose up -d"]
 }

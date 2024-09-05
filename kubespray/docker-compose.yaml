@@ -1,6 +1,7 @@
 services:
-  deploy:
+  kubespray:
     image: quay.io/kubespray/kubespray:v2.25.0
+    container_name: kubespray
     volumes:
     - "./inventory/mycluster:/inventory/mycluster"
     - "~/.ssh/id_rsa:/root/.ssh/id_rsa"
@@ -10,4 +11,3 @@ services:
              ansible-playbook -i /inventory/mycluster/inventory.ini --private-key /root/.ssh/id_rsa -b cluster.yml"
     stdin_open: true
     tty: true
-
