@@ -1,20 +1,13 @@
 route:
-  receiver: 'default_receiver'
+  receiver: 'telegram-receiver'
+  group_by: ['alertname', 'severity']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 3h
 
 receivers:
-- name: 'default_receiver'
-
-
-#route:
-#  receiver: 'telegram-receiver'
-#  group_by: ['alertname', 'severity']
-#  group_wait: 30s
-#  group_interval: 5m
-#  repeat_interval: 3h
-
-#receivers:
-#  - name: 'telegram-receiver'
-#    telegram_configs:
-#      - send_resolved: true
-#        bot_token: ${BOT_TOKENRD} #This config doesn't work
-#        chat_id: ${CHAT_ID} #This config doesn't work 
+  - name: 'telegram-receiver'
+    telegram_configs:
+      - send_resolved: true
+        bot_token:
+        chat_id:
