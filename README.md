@@ -114,7 +114,7 @@ Following sources should be added to Grafana:
 
 * prometheus:9000
 * alertmanager:9093
-* k8s-app-1:'<loki-loadbalanced port>'
+* k8s-app-1:<loki_loadbalanced_port>
 
 Following dashbords should be added to Grafana:
 
